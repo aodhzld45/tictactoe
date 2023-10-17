@@ -3,7 +3,7 @@ import Square from './Square'
 import "./Board.css"
 export default class Board extends Component {
     renderSquare(i) {
-        return <Square />
+        return <Square value={i} />
     }
 
   render() {
