@@ -2,10 +2,17 @@ import React, { Component } from 'react'
 import Square from './Square'
 import "./Board.css"
 export default class Board extends Component {
-    renderSquare(i) {
-        return <Square value={i} />
-    }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares : Array(9).fill(null), // fill 메서드는 배열의 시작 인덱스부터 끝 인덱스의 이전까지 정적인 값 하나로 채움. 
+        }
+    };
+    renderSquare(i) {
+        return <Square value={this.state.squares[i]} />
+    }
+ 
   render() {
     return (
       <div>
