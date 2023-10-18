@@ -6,11 +6,19 @@ export default class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            squares : Array(9).fill(null), // fill 메서드는 배열의 시작 인덱스부터 끝 인덱스의 이전까지 정적인 값 하나로 채움. 
+            squares : Array(9).fill(null) // fill 메서드는 배열의 시작 인덱스부터 끝 인덱스의 이전까지 정적인 값 하나로 채움. 
         }
     };
+
+    handleClick(i){
+      const squares = this.state.squares.slice();
+      squares[i] = 'X';
+      this.setState({squares : squares});
+    }
+
     renderSquare(i) {
-        return <Square value={this.state.squares[i]} />
+        return <Square value={this.state.squares[i]}
+         onClick={() => this.handleClick(i) } />
     }
  
   render() {
