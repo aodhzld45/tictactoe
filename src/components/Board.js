@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Square from './Square'
 import "./Board.css"
 const Board = () => {
-
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -10,13 +9,31 @@ const Board = () => {
     //     }
     // }; 
 
-    //Getter : 가져올 값 squares / Setter : 셋팅할 값 setSquares
+    // Getter : 가져올 값 squares / Setter : 셋팅할 값 setSquares
+    // const [Getter, Setter] = useState(Array(9).fill(null));
+ 
     const [squares, setSquares] = useState(Array(9).fill(null));
+    const [XisNext, setXisNext] = useState(true);
+
+    const status = `Next Player ${XisNext ? 'X' : 'O'}`
+    // const [number, setNumber] = useState(0);
+
+
 
     const handleClick = (i) => {
       const newSquares = squares.slice();
-      newSquares[i] = 'X';
+      newSquares[i] = XisNext ? 'X' : 'O';
       setSquares(newSquares);
+      // setXisNext(!XisNext);
+      setXisNext(prev => !prev);
+
+      // setNumber(number + 1 );
+      // setNumber(number + 1 );
+      // setNumber(prv => prv + 1)
+      // setNumber(prv => prv + 1)
+
+      // console.log('number : ' + number);
+
     }
 
     const renderSquare = (i) => {
@@ -27,7 +44,7 @@ const Board = () => {
   
     return (
       <div>
-        <div className='status'>Next Player: X,O</div>
+        <div className='status'>{status}</div>
         <div className='board-row'>
             {renderSquare(0)}
             {renderSquare(1)}

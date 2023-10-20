@@ -10,4 +10,4 @@ const Square = ({onClick, value}) => {
   
 }
 
-export default Square
+export default Square;
