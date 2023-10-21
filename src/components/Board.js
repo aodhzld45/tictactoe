@@ -12,6 +12,9 @@ const Board = () => {
     // Getter : 가져올 값 squares / Setter : 셋팅할 값 setSquares
     // const [Getter, Setter] = useState(Array(9).fill(null));
  
+    // Props / State 
+    // 1. Props : 상위 부모 Component가 자식 Component 에게 전달하는 데이터
+    // 2. State : Component가 독립적으로 갖는 상태
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [XisNext, setXisNext] = useState(true);
 
