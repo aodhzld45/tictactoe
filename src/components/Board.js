@@ -59,23 +59,17 @@ const Board = () => {
       status = `Next Player ${XisNext? 'X' : 'O'}`;
     }
 
-    // const [number, setNumber] = useState(0);
-
     const handleClick = (i) => {
       const newSquares = squares.slice();
+      // 승자가 결정 났을 경우 게임 진행 Stop 추가
+      if (calculateWinner(newSquares) || newSquares[i]) {
+        return;
+      }
+
       newSquares[i] = XisNext ? 'X' : 'O';
       setSquares(newSquares);
-      // setXisNext(!XisNext);
       setXisNext(prev => !prev);
-
-      // setNumber(number + 1 );
-      // setNumber(number + 1 );
-      // setNumber(prv => prv + 1)
-      // setNumber(prv => prv + 1)
-
-      // console.log('number : ' + number);
-
-    }
+   }
 
     const renderSquare = (i) => {
         return <Square value={squares[i]}
