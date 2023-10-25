@@ -16,6 +16,13 @@ function App() {
 const [history, setHistory] = useState([{ squares : Array(9).fill(null) }])
 const [XisNext, setXisNext] = useState(true);
 
+/*  
+  현재 몇 번째 스텝인지
+  알 수 있는 State 생성하기
+  이전으로 되돌아갔을 때 step을 기억하는 State
+*/
+const [stepNumber, setStepNumber] = useState(0);
+
   const calculateWinner = (squares) => {
       const lines = [
         [0,1,2],
@@ -38,7 +45,7 @@ const [XisNext, setXisNext] = useState(true);
     return null;
   }
 
-  const current = history[history.length - 1]; 
+  const current = history[stepNumber]; 
   const winner = calculateWinner(current.squares);
 
 
@@ -60,27 +67,53 @@ const [XisNext, setXisNext] = useState(true);
   }
 
   const handleClick = (i) => {
-    const newSquares = current.squares.slice();
+    /*
+    처음에는 stepNumber가 0이기에
+    history.slice(0,1) 이 된다
+    */
+    const newHistory = history.slice(0, stepNumber + 1);
+    const newCurrent = newHistory[newHistory.length - 1]; // 현재의 Current 값
+    const newSquares = newCurrent.squares.slice();
+    
     // 승자가 결정 났을 경우 게임 진행 Stop 추가
     if (calculateWinner(newSquares) || newSquares[i]) {
       return;
     }
 
     newSquares[i] = XisNext? 'X' : 'O';
-    setHistory([...history, { squares : newSquares }]);
-    setXisNext(current =>!current);
+    setHistory([...newHistory, { squares : newSquares }]);
+    setXisNext(prev =>!prev);
+
+    setStepNumber(newHistory.length);
   }
 
+    // Jump to 함수
+    // stepNumber를 업데이트하기 위해 jumpTO 함수 정의
+
+    const jumpTo = (step) => {
+      setStepNumber(step);
+      // stepNumber가 짝수 일때마다 xisNext를 true로 설정
+      setXisNext((step % 2) === 0);
+      
+     }
+
+  /* 
+       map() 함수를 이용해서
+      history 배열에 있는 것들을
+      하나씩 나열해주기
+  */
   const moves = history.map((step, move) => {
     const desc = move ? 
     'Go to move #' + move : 
     'Go to game start';
     return (
       <li key={move}>
-        <button>{desc}</button>
+        <button onClick={() => jumpTo(move)}>{desc}</button>
       </li>
     )
   });
+
+
 
   return (
     <div className="game">
