@@ -108,7 +108,7 @@ const [stepNumber, setStepNumber] = useState(0);
     'Go to game start';
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
+        <button className='move-button'  onClick={() => jumpTo(move)}>{desc}</button>
       </li>
     )
   });
